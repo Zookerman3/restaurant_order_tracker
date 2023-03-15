@@ -7,5 +7,8 @@ namespace Tracker.Models
         public int RestaurantId { get; set; }
         public int VegetableOrderId { get; set; }
         public int VegetableId { get; set; }
+
+        public Vegetable Vegetable { get; set; }
+        public Restaurant Restaurant { get; set; }
     }
 }

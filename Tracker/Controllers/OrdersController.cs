@@ -2,10 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Tracker.Controllers
 {
-    public class HomeController : Controller
+    public class OrdersController : Controller
     {
-
-        [HttpGet("/")]
         public ActionResult Index()
         {
             return View();

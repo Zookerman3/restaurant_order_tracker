@@ -8,6 +8,6 @@ namespace Tracker.Models
         
         public string VegetableType { get; set; }
         public string VegetableAmount { get; set; }
-        public List<VegetableOrder> JoinVegetableOrderEntities { get;}
+        public List<VegetableOrder> JoinVegetableOrderEntities { get; }
     }
 }
