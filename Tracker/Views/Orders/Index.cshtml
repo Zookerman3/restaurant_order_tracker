@@ -1,6 +1,47 @@
-
 @{
     Layout = "_Layout";
 }
 
-<h1>Welcome to the restaurant order tracker!</h1>
+<h1>Order Tracking Homepage</h1>
+
+<p>@Html.ActionLink("Add a new meat order", "Create", "Meats")</p>
+
+
+@using Tracker.Models;
+
+<h1>Meat Orders:</h1>
+
+@if (@Model["meats"].Length == 0)
+{
+    <h3>No Meat Orders have been added yet!</h3>
+}
+<ul>
+    @foreach (Meat meat in Model)
+    {
+        <li>@Html.ActionLink(@meat.MeatType, "Details", "Meats", new { id = @meat.MeatId })</li>
+    }
+</ul>
+
+<h1>Vegetable Orders:</h1>
+@if (Model["vegetables"].Length == 0)
+{
+  <p>No vegetable orders have been added yet!</p>
+} 
+<ul>
+  @foreach (Vegetable veg in Model["vegetables"])
+  {
+    <li>@Html.ActionLink(@veg.VegetableType, "Details", "Vegetables", new { id = @veg.VegetableId})</li>
+  }
+</ul>
+
+<h1>Alcohol Orders:</h1>
+@if (Model["alcohols"].Length == 0)
+{
+  <p>No alcohol orders have been added yet!</p>
+} 
+<ul>
+  @foreach (Alcohol alcs in Model["alcohols"])
+  {
+    <li>@Html.ActionLink(@alcs.AlcoholType, "Details", "Vegetables", new { id = @alcs.AlcoholId})</li>
+  }
+</ul>

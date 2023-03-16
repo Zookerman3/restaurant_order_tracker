@@ -37,7 +37,7 @@ namespace Tracker.Controllers
         public ActionResult Details(int id)
         {
             Restaurant thisRestaurant = _db.Restaurants
-                                    .FirstOrDefault(category => category.RestaurantId == id);
+                                    .FirstOrDefault(restaurant => restaurant.RestaurantId == id);
             return View(thisRestaurant);
         }
 

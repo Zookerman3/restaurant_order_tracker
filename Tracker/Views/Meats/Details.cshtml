@@ -1,0 +1,16 @@
+@{
+    Layout = "_Layout";
+}
+
+@model Tracker.Models.Meat;
+
+
+<h2>Meat Order Details</h2>
+<hr />
+<h3>Meat Type: @Html.DisplayFor(model => model.MeatType)</h3>
+<h3>Meat Amount: @Html.DisplayFor(model => model.MeatAmount)</h3>
+<h3>To add this meat to an order go to the orders homepage</h3>
+
+<p>@Html.ActionLink("Edit this order template", "Edit", new { id = Model.MeatId })</p>
+<p>@Html.ActionLink("Delete meat template", "Delete", new { id = Model.MeatId })</p>
+<p>@Html.ActionLink("Back to orders", "Index", "Orders")</p>

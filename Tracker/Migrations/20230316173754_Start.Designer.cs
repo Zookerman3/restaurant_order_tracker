@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracker.Models;
 
@@ -10,9 +11,10 @@ using Tracker.Models;
 namespace Tracker.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    partial class TrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230316173754_Start")]
+    partial class Start
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace Tracker.Migrations
 
                     b.HasKey("AlcoholId");
 
-                    b.ToTable("Alcohols");
+                    b.ToTable("Alcohol");
                 });
 
             modelBuilder.Entity("Tracker.Models.AlcoholOrder", b =>
@@ -99,7 +101,7 @@ namespace Tracker.Migrations
 
                     b.HasKey("MeatId");
 
-                    b.ToTable("Meats");
+                    b.ToTable("Meat");
                 });
 
             modelBuilder.Entity("Tracker.Models.MeatOrder", b =>
@@ -159,7 +161,7 @@ namespace Tracker.Migrations
 
                     b.HasKey("VegetableId");
 
-                    b.ToTable("Vegetables");
+                    b.ToTable("Vegetable");
                 });
 
             modelBuilder.Entity("Tracker.Models.VegetableOrder", b =>

@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Tracker.Models.Meat
+
+<h2>Edit</h2>
+
+<h4>Edit this meat: @Html.DisplayFor(model => model.MeatType)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.MeatId)
+
+  @Html.LabelFor(model => model.MeatType)
+  @Html.EditorFor(model => model.MeatType)
+
+   @Html.LabelFor(model => model.MeatAmount)
+  @Html.EditorFor(model => model.MeatAmount)
+
+  <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index", "Orders")</p>

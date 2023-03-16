@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Tracker.Models.Meat
+
+<h4>Add a new restaurant</h4>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.MeatType)
+  @Html.TextBoxFor(model => model.MeatType)
+  <br>
+  <br>
+  @Html.LabelFor(model => model.MeatAmount)
+  @Html.TextBoxFor(model => model.MeatAmount)
+  <input type="submit" value="Add new meat" />
+}
+<p>@Html.ActionLink("Show all orders", "Index", "Orders")</p>

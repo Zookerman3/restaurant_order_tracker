@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Tracker.Models.Vegetable
+
+<h2>Edit</h2>
+
+<h4>Edit this vegetable: @Html.DisplayFor(model => model.VegetableType)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.VegetableId)
+
+  @Html.LabelFor(model => model.VegetableType)
+  @Html.EditorFor(model => model.VegetableType)
+
+   @Html.LabelFor(model => model.VegetableAmount)
+  @Html.EditorFor(model => model.VegetableAmount)
+
+  <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index", "Orders")</p>
