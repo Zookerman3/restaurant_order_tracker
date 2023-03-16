@@ -21,44 +21,44 @@ namespace Tracker.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Vegetable meat)
+        public ActionResult Create(Vegetable vegetable)
         {
-            _db.Meats.Add(meat);
+            _db.Vegetables.Add(vegetable);
             _db.SaveChanges();
             return RedirectToAction("Index", "Orders");
         }
         public ActionResult Details(int id)
         {
-            Meat thisMeat = _db.Meats
-                                    .FirstOrDefault(meat => meat.MeatId == id);
-            return View(thisMeat);
+            Vegetable thisVegetable = _db.Vegetables
+                                    .FirstOrDefault(vegetable => vegetable.VegetableId == id);
+            return View(thisVegetable);
         }
 
         public ActionResult Edit(int id)
         {
-            Meat thisMeat = _db.Meats.FirstOrDefault(meat => meat.MeatId == id);
-            return View(thisMeat);
+            Vegetable thisVegetable = _db.Vegetables.FirstOrDefault(vegetable => vegetable.VegetableId == id);
+            return View(thisVegetable);
         }
 
         [HttpPost]
-        public ActionResult Edit(Meat meat)
+        public ActionResult Edit(Vegetable vegetable)
         {
-            _db.Meats.Update(meat);
+            _db.Vegetables.Update(vegetable);
             _db.SaveChanges();
             return RedirectToAction("Index", "Orders");
         }
 
         public ActionResult Delete(int id)
         {
-            Meat thisMeat = _db.Meats.FirstOrDefault(meat => meat.MeatId == id);
-            return View(thisMeat);
+            Vegetable thisVegetable = _db.Vegetables.FirstOrDefault(vegetable => vegetable.VegetableId == id);
+            return View(thisVegetable);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Meat thisMeat = _db.Meats.FirstOrDefault(meat => meat.MeatId == id);
-            _db.Meats.Remove(thisMeat);
+            Vegetable thisVegetable = _db.Vegetables.FirstOrDefault(vegetable => vegetable.VegetableId == id);
+            _db.Vegetables.Remove(thisVegetable);
             _db.SaveChanges();
             return RedirectToAction("Index", "Orders");
         }
