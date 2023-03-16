@@ -25,7 +25,7 @@ namespace Tracker.Controllers
         {
             _db.Alcohols.Add(alcohol);
             _db.SaveChanges();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "OrderTemplates");
         }
         public ActionResult Details(int id)
         {
@@ -45,7 +45,7 @@ namespace Tracker.Controllers
         {
             _db.Alcohols.Update(alcohol);
             _db.SaveChanges();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "OrderTemplates");
         }
 
         public ActionResult Delete(int id)
@@ -60,7 +60,7 @@ namespace Tracker.Controllers
             Alcohol thisAlcohol = _db.Alcohols.FirstOrDefault(alcohol => alcohol.AlcoholId == id);
             _db.Alcohols.Remove(thisAlcohol);
             _db.SaveChanges();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "OrderTemplates");
         }
     }
 }

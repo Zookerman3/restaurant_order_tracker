@@ -9,8 +9,8 @@
 <hr />
 <h3>Alcohol Type: @Html.DisplayFor(model => model.AlcoholType)</h3>
 <h3>Alcohol Amount: @Html.DisplayFor(model => model.AlcoholAmount)</h3>
-<h3>To add this meat to an order go to the orders homepage</h3>
+<h3>To add this alcohol to an order go to the orders homepage</h3>
 
 <p>@Html.ActionLink("Edit this order template", "Edit", new { id = Model.AlcoholId })</p>
-<p>@Html.ActionLink("Delete meat template", "Delete", new { id = Model.AlcoholId })</p>
-<p>@Html.ActionLink("Back to orders", "Index", "Orders")</p>
+<p>@Html.ActionLink("Delete alcohol template", "Delete", new { id = Model.AlcoholId })</p>
+<p>@Html.ActionLink("Back to order templates", "Index", "OrderTemplates")</p>

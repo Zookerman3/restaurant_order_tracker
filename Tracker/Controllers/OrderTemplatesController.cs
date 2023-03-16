@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Tracker.Controllers
 {
-    public class OrdersController : Controller
+    public class OrderTemplatesController : Controller
     {
         private readonly TrackerContext _db;
 
-        public OrdersController(TrackerContext db)
+        public OrderTemplatesController(TrackerContext db)
         {
             _db = db;
         }

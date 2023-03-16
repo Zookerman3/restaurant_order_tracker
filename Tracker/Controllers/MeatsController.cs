@@ -25,7 +25,7 @@ namespace Tracker.Controllers
         {
             _db.Meats.Add(meat);
             _db.SaveChanges();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "OrderTemplates");
         }
         public ActionResult Details(int id)
         {
@@ -45,7 +45,7 @@ namespace Tracker.Controllers
         {
             _db.Meats.Update(meat);
             _db.SaveChanges();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "OrderTemplates");
         }
 
         public ActionResult Delete(int id)
@@ -60,7 +60,7 @@ namespace Tracker.Controllers
             Meat thisMeat = _db.Meats.FirstOrDefault(meat => meat.MeatId == id);
             _db.Meats.Remove(thisMeat);
             _db.SaveChanges();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "OrderTemplates");
         }
     }
 }

@@ -10,7 +10,7 @@
 
 @using Tracker.Models;
 
-<h1>Meat Orders:</h1>
+<h1>Meat Order Templates:</h1>
 
 @if (@Model["meats"].Length == 0)
 {
@@ -23,7 +23,7 @@
     }
 </ul>
 
-<h1>Vegetable Orders:</h1>
+<h1>Vegetable Order Templates</h1>
 @if (Model["vegetables"].Length == 0)
 {
   <p>No vegetable orders have been added yet!</p>
@@ -35,7 +35,7 @@
   }
 </ul>
 
-<h1>Alcohol Orders:</h1>
+<h1>Alcohol Order Templates:</h1>
 @if (Model["alcohols"].Length == 0)
 {
   <p>No alcohol orders have been added yet!</p>
@@ -43,6 +43,8 @@
 <ul>
   @foreach (Alcohol alcs in Model["alcohols"])
   {
-    <li>@Html.ActionLink(@alcs.AlcoholType, "Details", "Vegetables", new { id = @alcs.AlcoholId})</li>
+    <li>@Html.ActionLink(@alcs.AlcoholType, "Details", "Alcohols", new { id = @alcs.AlcoholId})</li>
   }
 </ul>
+
+<p>@Html.ActionLink("Back To Home", "Index", "Home")</p>
