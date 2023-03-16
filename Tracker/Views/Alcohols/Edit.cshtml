@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Tracker.Models.Alcohol
+
+<h2>Edit</h2>
+
+<h4>Edit this alcohol: @Html.DisplayFor(model => model.AlcoholType)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.AlcoholId)
+
+  @Html.LabelFor(model => model.AlcoholType)
+  @Html.EditorFor(model => model.AlcoholType)
+
+   @Html.LabelFor(model => model.AlcoholAmount)
+  @Html.EditorFor(model => model.AlcoholAmount)
+
+  <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index", "Orders")</p>

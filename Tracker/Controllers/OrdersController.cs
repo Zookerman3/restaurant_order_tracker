@@ -17,11 +17,11 @@ namespace Tracker.Controllers
         }
         public ActionResult Index()
         {
-            Meat[] meats = _db.Meats.ToArray();
+            Meat[] meat = _db.Meats.ToArray();
             Vegetable[] vegs = _db.Vegetables.ToArray();
             Alcohol[] alcs = _db.Alcohols.ToArray();
             Dictionary<string, object[]> model = new Dictionary<string, object[]>();
-            model.Add("meats", meats);
+            model.Add("meats", meat);
             model.Add("vegetables", vegs);
             model.Add("alcohols", alcs);
 

@@ -4,8 +4,9 @@
 
 <h1>Order Tracking Homepage</h1>
 
-<p>@Html.ActionLink("Add a new meat order", "Create", "Meats")</p>
-
+<p>@Html.ActionLink("Add a new meat order template", "Create", "Meats")</p>
+<p>@Html.ActionLink("Add a new vegetable order template", "Create", "Vegetables")</p>
+<p>@Html.ActionLink("Add a new alcohol order template", "Create", "Alcohols")</p>
 
 @using Tracker.Models;
 
@@ -16,7 +17,7 @@
     <h3>No Meat Orders have been added yet!</h3>
 }
 <ul>
-    @foreach (Meat meat in Model)
+    @foreach (Meat meat in Model["meats"])
     {
         <li>@Html.ActionLink(@meat.MeatType, "Details", "Meats", new { id = @meat.MeatId })</li>
     }
