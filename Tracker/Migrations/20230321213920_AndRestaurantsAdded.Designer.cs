@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracker.Models;
 
@@ -10,9 +11,10 @@ using Tracker.Models;
 namespace Tracker.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    partial class TrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230321213920_AndRestaurantsAdded")]
+    partial class AndRestaurantsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +26,9 @@ namespace Tracker.Migrations
                     b.Property<int>("AlcoholId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("AlcAndRestaurant")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("AlcoholAmount")
                         .HasColumnType("longtext");
@@ -41,9 +46,6 @@ namespace Tracker.Migrations
                     b.Property<int>("AlcoholOrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("AlcAndRestaurant")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("AlcoholId")
                         .HasColumnType("int");

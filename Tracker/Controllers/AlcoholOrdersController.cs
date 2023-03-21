@@ -33,7 +33,8 @@ namespace Tracker.Controllers
 #nullable disable
             if (joinEntity == null && alcoholId != 0)
             {
-                _db.AlcoholOrders.Add(new AlcoholOrder() { RestaurantId = restaurantId, AlcoholId = alcoholId });
+                string alcAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Alcohols.Find(alcoholId).AlcoholType}";
+                _db.AlcoholOrders.Add(new AlcoholOrder() { RestaurantId = restaurantId, AlcoholId = alcoholId, AlcAndRestaurant = alcAndRestaurant });
                 _db.SaveChanges();
             }
             return RedirectToAction("Index", "RestaurantOrders");

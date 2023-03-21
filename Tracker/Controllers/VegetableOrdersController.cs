@@ -32,7 +32,8 @@ namespace Tracker.Controllers
 #nullable disable
             if (joinEntity == null && vegetableId != 0)
             {
-                _db.VegetableOrders.Add(new VegetableOrder() { RestaurantId = restaurantId, VegetableId = vegetableId });
+                string vegAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Vegetables.Find(vegetableId).VegetableType}";
+                _db.VegetableOrders.Add(new VegetableOrder() { RestaurantId = restaurantId, VegetableId = vegetableId, VegAndRestaurant = vegAndRestaurant });
                 _db.SaveChanges();
             }
             return RedirectToAction("Index", "RestaurantOrders");

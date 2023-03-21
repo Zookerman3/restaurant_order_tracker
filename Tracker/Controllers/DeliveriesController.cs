@@ -34,14 +34,31 @@ namespace Tracker.Controllers
         public ActionResult Create()
         {
             var meatOrder = _db.MeatOrders
-                            .Select (i => new
+                            .Select(i => new
                             {
-                                MeatOrderId= i.MeatOrderId,
-                                MeatType= i.Meat.MeatType
+                                MeatOrderId = i.MeatOrderId,
+                                MeatandRestaurant = i.MeatAndRestaurant
                             }).ToList();
-            ViewBag.MeatOrderId = new SelectList(meatOrder, "MeatOrderId", "MeatType");
-            // ViewBag.VegetableOrderId = new SelectList(_db.VegetableOrders, "VegetableOrderId", "VegetableType");
-            // ViewBag.AlcoholOrderId = new SelectList(_db.AlcoholOrders, "AlcoholOrderId", "AlcoholType");
+            meatOrder.Insert(0, new { MeatOrderId = 0, MeatandRestaurant = "" });
+            ViewBag.MeatOrderId = new SelectList(meatOrder, "MeatOrderId", "MeatandRestaurant");
+
+            var vegOrder = _db.VegetableOrders
+                                        .Select(i => new
+                                        {
+                                            VegetableOrderId = i.VegetableOrderId,
+                                            VegandRestaurant = i.VegAndRestaurant
+                                        }).ToList();
+            vegOrder.Insert(0, new { VegetableOrderId = 0, VegandRestaurant = "" });
+            ViewBag.VegetableOrderId = new SelectList(vegOrder, "VegetableOrderId", "VegandRestaurant");
+
+            var alcOrder = _db.AlcoholOrders
+                                        .Select(i => new
+                                        {
+                                            AlcoholOrderId = i.AlcoholOrderId,
+                                            AlcandRestaurant = i.AlcAndRestaurant
+                                        }).ToList();
+            alcOrder.Insert(0, new { AlcoholOrderId = 0, AlcandRestaurant = "" });
+            ViewBag.AlcoholOrderId = new SelectList(alcOrder, "AlcoholOrderId", "AlcandRestaurant");
             return View();
 
         }
