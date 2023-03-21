@@ -64,14 +64,14 @@ namespace Tracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(int meatOrderId, int vegOrderId, int alcOrderId)
+        public ActionResult Create(int meatOrderId, int VegetableOrderId, int AlcoholOrderId, string DeliveryName)
         {
 #nullable enable
-            Delivery? joinEntity = _db.Deliveries.FirstOrDefault(join => (join.MeatOrderId == meatOrderId && join.VegetableOrderId == vegOrderId && join.AlcoholOrderId == alcOrderId));
+            Delivery? joinEntity = _db.Deliveries.FirstOrDefault(join => (join.MeatOrderId == meatOrderId && join.VegetableOrderId == VegetableOrderId && join.AlcoholOrderId == AlcoholOrderId));
 #nullable disable
-            if (joinEntity == null && meatOrderId != 0 && vegOrderId != 0 && alcOrderId != 0)
+            if (joinEntity == null && meatOrderId != 0 && VegetableOrderId != 0 && AlcoholOrderId != 0)
             {
-                _db.Deliveries.Add(new Delivery() { MeatOrderId = meatOrderId, VegetableOrderId = vegOrderId, AlcoholOrderId = alcOrderId });
+                _db.Deliveries.Add(new Delivery() { MeatOrderId = meatOrderId, VegetableOrderId = VegetableOrderId, AlcoholOrderId = AlcoholOrderId, DeliveryName = DeliveryName });
                 _db.SaveChanges();
             }
             return RedirectToAction("Index", "Deliveries");

@@ -7,6 +7,11 @@
 
 @using (Html.BeginForm())
 {
+
+    @Html.LabelFor(model => model.DeliveryName)
+    @Html.TextBoxFor(model => model.DeliveryName)
+        <br>
+        <br>
     @Html.Label("Select Meat Order For Restaurant")
     @Html.DropDownList("MeatOrderId")
     <br>
@@ -17,6 +22,8 @@
     <br>
     @Html.Label("Select Alcohol Order For Restaurant")
     @Html.DropDownList("AlcoholOrderId")
+
+
 
     <input type="submit" value="Save" />
 }
