@@ -38,5 +38,23 @@ namespace Tracker.Controllers
             }
             return RedirectToAction("Index", "RestaurantOrders");
         }
+
+        public ActionResult Delete(int id)
+        {
+            MeatOrder thisMeatOrder = _db.MeatOrders
+            .Include(meatOrder => meatOrder.Meat)
+            .FirstOrDefault(meatOrder => meatOrder.MeatOrderId == id);
+            return View(thisMeatOrder);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            MeatOrder thisMeatOrder = _db.MeatOrders.FirstOrDefault(meatOrder => meatOrder.MeatOrderId == id);
+            _db.MeatOrders.Remove(thisMeatOrder);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "RestaurantOrders");
+        }
+
     }
 }

@@ -11,7 +11,7 @@ namespace Tracker.Models
         public DbSet<MeatOrder> MeatOrders { get; set; }
         public DbSet<VegetableOrder> VegetableOrders { get; set; }
         public DbSet<AlcoholOrder> AlcoholOrders { get; set; }
-        public DbSet<Delivery> Delivery { get; set; }
+        public DbSet<Delivery> Deliveries { get; set; }
 
         public TrackerContext(DbContextOptions options) : base(options) { }
     }

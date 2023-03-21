@@ -1,0 +1,29 @@
+@{
+    Layout = "_Layout";
+}
+
+<p>@Html.ActionLink("Add A Restaurant Order for a delivery", "Create", "Deliveries")</p>
+
+
+<h1>Deliveries Homepage</h1>
+<br>
+<br>
+
+@using Tracker.Models;
+
+
+@if (@Model.Length == 0)
+{
+    <p>No deliveries have been created yet!</p>
+}
+<ul>
+    @foreach (Delivery delivery in Model)
+    {
+        <li>@Html.ActionLink(@delivery.DeliveryName, "Details", new { id = @delivery.DeliveryId })
+
+        </li>
+    }
+</ul>
+<br>
+
+<p>@Html.ActionLink("Back To Home", "Index", "Home")</p>

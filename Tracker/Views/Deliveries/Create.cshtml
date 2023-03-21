@@ -1,0 +1,22 @@
+@{
+    Layout = "_Layout";
+}
+
+@model Tracker.Models.Delivery
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Select Meat Order For Restaurant")
+    @Html.DropDownList("MeatOrderId")
+    <br>
+    <br>
+    @* @Html.Label("Select Vegetable Order For Restaurant")
+    @Html.DropDownList("VegetableOrderId")
+    <br>
+    <br>
+    @Html.Label("Select Alcohol Order For Restaurant")
+    @Html.DropDownList("AlcoholOrderId") *@
+
+    <input type="submit" value="Save" />
+}

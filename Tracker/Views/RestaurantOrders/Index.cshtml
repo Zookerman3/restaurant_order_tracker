@@ -21,7 +21,7 @@
 <ul>
     @foreach (MeatOrder meatOrder in Model["meatOrder"])
     {
-        <li>@Html.ActionLink(@meatOrder.Meat.MeatType, "Details", new { id = @meatOrder.MeatOrderId })
+        <li>@Html.ActionLink(@meatOrder.Meat.MeatType, "Delete", "MeatOrders", new { id = @meatOrder.MeatOrderId })
             | @meatOrder.Restaurant.Name</li>
     }
 </ul>
@@ -35,7 +35,7 @@
 <ul>
     @foreach (VegetableOrder vegOrder in Model["vegOrder"])
     {
-        <li>@Html.ActionLink(@vegOrder.Vegetable.VegetableType, "Details", new { id = @vegOrder.VegetableOrderId})
+        <li>@Html.ActionLink(@vegOrder.Vegetable.VegetableType, "Delete", "VegetableOrders", new { id = @vegOrder.VegetableOrderId})
             | @vegOrder.Restaurant.Name</li>
     }
 </ul>
@@ -48,7 +48,7 @@
 <ul>
     @foreach (AlcoholOrder alcOrder in Model["alcOrder"])
     {
-        <li>@Html.ActionLink(@alcOrder.Alcohol.AlcoholType, "Details", "Alcohols", new { id = @alcOrder.AlcoholOrderId}) | @alcOrder.Restaurant.Name
+        <li>@Html.ActionLink(@alcOrder.Alcohol.AlcoholType, "Delete", "AlcoholOrders", new { id = @alcOrder.AlcoholOrderId}) | @alcOrder.Restaurant.Name
         </li>
     }
 </ul>
