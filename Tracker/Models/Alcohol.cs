@@ -8,6 +8,6 @@ namespace Tracker.Models
         public string AlcoholType { get; set; }
         public string AlcoholAmount { get; set; }
         public List<AlcoholOrder> JoinAlcoholEntities { get;}
-        // public ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }
