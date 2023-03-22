@@ -7,6 +7,8 @@
 <h1>Deliveries Homepage</h1>
 @using (Html.BeginForm())
 {
+    
+    @Html.HiddenFor(model => model.DeliveryId)
 
     @Html.LabelFor(model => model.DeliveryName)
     @Html.TextBoxFor(model => model.DeliveryName)

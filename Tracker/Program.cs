@@ -2,40 +2,61 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tracker.Models;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Tracker
 {
-  class Program
-  {
-    static void Main(string[] args)
+    class Program
     {
+        static void Main(string[] args)
+        {
 
-      WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-      builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews();
 
-      builder.Services.AddDbContext<TrackerContext>(
-                        dbContextOptions => dbContextOptions
-                          .UseMySql(
-                            builder.Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
-                          )
-                        )
-                      );
+            builder.Services.AddDbContext<TrackerContext>(
+                              dbContextOptions => dbContextOptions
+                                .UseMySql(
+                                  builder.Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
+                                )
+                              )
+                            );
 
-      WebApplication app = builder.Build();
+            // New code below!!
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                      .AddEntityFrameworkStores<TrackerContext>()
+                      .AddDefaultTokenProviders();
 
-      // app.UseDeveloperExceptionPage();
-      app.UseHttpsRedirection();
-      app.UseStaticFiles();
+            builder.Services.Configure<IdentityOptions>(options =>
+                  {
+                  options.Password.RequireDigit = false;
+                  options.Password.RequireLowercase = false;
+                  options.Password.RequireNonAlphanumeric = false;
+                  options.Password.RequireUppercase = false;
+                  options.Password.RequiredLength = 0;
+                  options.Password.RequiredUniqueChars = 0;
+                  });
 
-      app.UseRouting();
+            WebApplication app = builder.Build();
 
-      app.MapControllerRoute(
-          name: "default",
-          pattern: "{controller=Home}/{action=Index}/{id?}"
-        );
+            // app.UseDeveloperExceptionPage();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
-      app.Run();
+            app.UseRouting();
+
+            // New code below!
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+              );
+
+            app.Run();
+        }
     }
-  }
 }

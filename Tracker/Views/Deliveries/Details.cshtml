@@ -1,0 +1,33 @@
+@{
+    Layout = "_Layout";
+}
+
+@model Tracker.Models.Delivery;
+@using Tracker.Models;
+
+<h2>Delivery Details</h2>
+<hr />
+<h3>Delivery is for: @Html.DisplayFor(model => model.DeliveryName)</h3>
+
+@if (@Model.MeatOrderId == 0)
+{
+    <p>This delivery does not contain any meat orders</p>
+}
+else
+{
+    <h4>Meat Orders the delivery contains:</h4>
+    <ul>
+    @foreach (MeatOrder meatOrder in Model.JoinMeatOrderEntities)
+        {
+            <li>Type of meat: @meatOrder.Meat.MeatType
+                <br> Amount of Meat: @meatOrder.Meat.MeatAmount
+                <br> Restaurant: @meatOrder.Restaurant.Name
+            </li>
+        }
+    </ul>
+}
+
+<p>@Html.ActionLink("Back to deliveries", "Index")</p>
+<p>@Html.ActionLink("Edit Deliveries", "Edit", new { id = Model.DeliveryId })</p>
+<p>@Html.ActionLink("Delete Delivery", "Delete", new { id = Model.DeliveryId })</p>
+<p>@Html.ActionLink("Add new delivery", "Create")</p>

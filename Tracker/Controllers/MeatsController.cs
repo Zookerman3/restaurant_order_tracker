@@ -3,17 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using Tracker.Models;
 using System.Collections.Generic;
 using System.Linq;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Tracker.Controllers
 {
+    [Authorize]
     public class MeatsController : Controller
     {
 
         private readonly TrackerContext _db;
-
-        public MeatsController(TrackerContext db)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public MeatsController(UserManager<ApplicationUser> userManager, TrackerContext db)
         {
+            _userManager = userManager;
             _db = db;
         }
         public ActionResult Create()
@@ -21,11 +26,21 @@ namespace Tracker.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Meat meat)
+        public async Task<ActionResult> Create(Meat meat)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+            meat.User = currentUser;
             _db.Meats.Add(meat);
             _db.SaveChanges();
             return RedirectToAction("Index", "OrderTemplates");
+            }
         }
         public ActionResult Details(int id)
         {

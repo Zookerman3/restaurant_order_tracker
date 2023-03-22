@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Tracker.Models
 {
-    public class TrackerContext : DbContext
+    public class TrackerContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Meat> Meats { get; set; }
         public DbSet<Vegetable> Vegetables { get; set; }

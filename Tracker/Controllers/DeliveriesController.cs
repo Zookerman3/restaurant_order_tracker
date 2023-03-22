@@ -64,8 +64,9 @@ namespace Tracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(int meatOrderId, int VegetableOrderId, int AlcoholOrderId, string DeliveryName)
-        
+        public ActionResult Create(int meatOrderId, int VegetableOrderId, int AlcoholOrderId, string DeliveryName, int DeliveryId)
+
+
         {
 #nullable enable
             Delivery? joinEntity = _db.Deliveries.FirstOrDefault(join => (join.MeatOrderId == meatOrderId && join.VegetableOrderId == VegetableOrderId && join.AlcoholOrderId == AlcoholOrderId));
@@ -78,5 +79,40 @@ namespace Tracker.Controllers
             return RedirectToAction("Index", "Deliveries");
         }
 
+
+        public ActionResult Details(int id)
+        {
+            Delivery thisDelivery = _db.Deliveries
+                                    .Include(delivery => delivery.JoinMeatOrderEntities)
+                                    .ThenInclude(meatOrder => meatOrder.Meat)
+                                    .Include(delivery => delivery.JoinMeatOrderEntities)
+                                    .ThenInclude(meatOrder => meatOrder.Restaurant)
+                                    .Include(delivery => delivery.JoinVegetableOrderEntities)
+                                    .ThenInclude(vegOrder => vegOrder.Vegetable)
+                                    .Include(delivery => delivery.JoinVegetableOrderEntities)
+                                    .ThenInclude(vegOrder => vegOrder.Restaurant)
+                                    .Include(delivery => delivery.JoinAlcoholEntities)
+                                    .ThenInclude(alcOrder => alcOrder.Alcohol)
+                                    .Include(delivery => delivery.JoinAlcoholEntities)
+                                    .FirstOrDefault(delivery => delivery.DeliveryId == id);
+            return View(thisDelivery);
+        }
     }
 }
+
+
+    // MeatOrder thisMeatOrder = _db.MeatOrders.FirstOrDefault(meatOrder => meatOrder.MeatOrderId == meatOrderId);
+
+                // if (thisMeatOrder.DeliveryId == 0)
+                // {
+                //     // find the Delivery entity with the specified DeliveryId
+                //     Delivery thisDelivery = _db.Deliveries.FirstOrDefault(d => d.DeliveryId == DeliveryId);
+
+                //     if (thisDelivery != null)
+                //     {
+                //         // update the MeatOrder entity with the Delivery's ID
+                //         thisMeatOrder.Delivery.DeliveryId = thisDelivery.DeliveryId;
+
+                //         _db.SaveChanges();
+                //     }
+                // }

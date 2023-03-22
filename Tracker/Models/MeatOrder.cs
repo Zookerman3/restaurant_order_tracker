@@ -10,5 +10,7 @@ namespace Tracker.Models
         public string MeatAndRestaurant {get; set;}
         public Meat Meat { get; set; }
         public Restaurant Restaurant { get; set; }
+
+        public Delivery Delivery { get; set; }
     }
 }

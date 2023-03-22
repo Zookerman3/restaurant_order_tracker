@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracker.Models;
 
@@ -10,9 +11,10 @@ using Tracker.Models;
 namespace Tracker.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    partial class TrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230322205453_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,15 +338,9 @@ namespace Tracker.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("RestaurantId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Restaurants");
                 });
@@ -494,15 +490,6 @@ namespace Tracker.Migrations
                     b.Navigation("Meat");
 
                     b.Navigation("Restaurant");
-                });
-
-            modelBuilder.Entity("Tracker.Models.Restaurant", b =>
-                {
-                    b.HasOne("Tracker.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Tracker.Models.VegetableOrder", b =>
