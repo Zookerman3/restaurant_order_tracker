@@ -4,16 +4,22 @@
 
 @model Tracker.Models.MeatOrder
 
-
-@using (Html.BeginForm())
+@if (User.Identity.IsAuthenticated)
 {
+    @using (Html.BeginForm())
+    {
 
-    @Html.Label("Select restaurant ")
-    @Html.DropDownList("RestaurantId")
-    <br>
-    <br>
-    @Html.Label("Select meat template ")
-    @Html.DropDownList("MeatId")
+        @Html.Label("Select restaurant ")
+        @Html.DropDownList("RestaurantId")
+        <br>
+        <br>
+        @Html.Label("Select meat template ")
+        @Html.DropDownList("MeatId")
 
-    <input type="submit" value="Save" />
+        <input type="submit" value="Save" />
+    }
+} else 
+{
+    <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your order templates.</p>
 }
+

@@ -29,36 +29,43 @@ namespace Tracker.Controllers
             ViewBag.RestaurantId = new SelectList(_db.Restaurants, "RestaurantId", "Name");
             ViewBag.MeatId = new SelectList(_db.Meats, "MeatId", "MeatType");
             return View();
-
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(int restaurantId, int meatId, MeatOrder meatOrder)
+        public async Task<ActionResult> Create(int restaurantId, int meatId)
         {
 
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            else
-            {
-
-#nullable enable
+            else{
+            #nullable enable
                 MeatOrder? joinEntity = _db.MeatOrders.FirstOrDefault(join => (join.RestaurantId == restaurantId && join.MeatId == meatId));
 #nullable disable
-                if (joinEntity == null && meatId != 0)
-                {
+                if  (joinEntity == null && meatId != 0)
+                
+                    // If no matching MeatOrder exists, create a new one and set its properties
+                    joinEntity = new MeatOrder();
+                    joinEntity.RestaurantId = restaurantId;
+                    joinEntity.MeatId = meatId;
+                    string meatAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Meats.Find(meatId).MeatType}";
+                    joinEntity.MeatAndRestaurant = meatAndRestaurant;
+
+                    // Set the current user as the User of the new MeatOrder
                     string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+                    joinEntity.User = currentUser;
 
-                    meatOrder.User = currentUser;
-                    string meatAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Meats.Find(meatId).MeatType}";
-                    _db.MeatOrders.Add(new MeatOrder() { RestaurantId = restaurantId, MeatId = meatId, MeatAndRestaurant = meatAndRestaurant });
+                    // Add the new MeatOrder to the database and save changes
+                    _db.MeatOrders.Add(joinEntity);
                     _db.SaveChanges();
+                    return RedirectToAction("Index", "RestaurantOrders");
                 }
-                return RedirectToAction("Index", "RestaurantOrders");
+            
             }
-        }
+                
+           
 
         public ActionResult Delete(int id)
         {

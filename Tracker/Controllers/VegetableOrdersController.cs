@@ -32,7 +32,7 @@ namespace Tracker.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(int restaurantId, int vegetableId, VegetableOrder vegetableOrder)
+        public async Task<ActionResult> Create(int restaurantId, int vegetableId)
         {
             if (!ModelState.IsValid)
             {
@@ -44,16 +44,21 @@ namespace Tracker.Controllers
             VegetableOrder? joinEntity = _db.VegetableOrders.FirstOrDefault(join => (join.RestaurantId == restaurantId && join.VegetableId == vegetableId));
 #nullable disable
             if (joinEntity == null && vegetableId != 0)
-            {
+
+                joinEntity = new VegetableOrder();
+                joinEntity.RestaurantId = restaurantId;
+                joinEntity.VegetableId = vegetableId;
+                string vegAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Vegetables.Find(vegetableId).VegetableType}";
+                joinEntity.VegAndRestaurant = vegAndRestaurant;
+
                  string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+                joinEntity.User = currentUser;
 
-                vegetableOrder.User = currentUser;
-                string vegAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Vegetables.Find(vegetableId).VegetableType}";
-                _db.VegetableOrders.Add(new VegetableOrder() { RestaurantId = restaurantId, VegetableId = vegetableId, VegAndRestaurant = vegAndRestaurant });
+                
+                _db.VegetableOrders.Add(joinEntity);
                 _db.SaveChanges();
-            }
-            return RedirectToAction("Index", "RestaurantOrders");
+                return RedirectToAction("Index", "RestaurantOrders");
             }
         }
 

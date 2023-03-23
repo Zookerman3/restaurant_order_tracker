@@ -1,7 +1,6 @@
 @{
     Layout = "_Layout";
 }
-
 <p>@Html.ActionLink("Add A New Restaurant Order for Meat", "Create", "MeatOrders")</p>
 <p>@Html.ActionLink("Add A New Restaurant Order for Vegetables", "Create", "VegetableOrders")</p>
 <p>@Html.ActionLink("Add A New Restaurant Order for Alcohol", "Create", "AlcoholOrders")</p>
@@ -15,7 +14,6 @@
 <h1>Meat Orders For Restaurants</h1>
 @if (User.Identity.IsAuthenticated)
 {
-
     <h4>Order Templates for @User.Identity.Name</h4>
 
     @if (@Model["meatOrder"].Length == 0)

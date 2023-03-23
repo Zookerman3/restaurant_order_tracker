@@ -32,29 +32,36 @@ namespace Tracker.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(int restaurantId, int alcoholId, AlcoholOrder alcoholOrder)
+        public async Task<ActionResult> Create(int restaurantId, int alcoholId)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            else
-            {
-#nullable enable
+            else{
+            #nullable enable
                 AlcoholOrder? joinEntity = _db.AlcoholOrders.FirstOrDefault(join => (join.RestaurantId == restaurantId && join.AlcoholId == alcoholId));
 #nullable disable
-                if (joinEntity == null && alcoholId != 0)
-                {
+                if  (joinEntity == null && alcoholId != 0)
+                
+                    // If no matching MeatOrder exists, create a new one and set its properties
+                    joinEntity = new AlcoholOrder();
+                    joinEntity.RestaurantId = restaurantId;
+                    joinEntity.AlcoholId = alcoholId;
+                    string alcAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Alcohols.Find(alcoholId).AlcoholType}";
+                    joinEntity.AlcAndRestaurant = alcAndRestaurant;
+
+                    // Set the current user as the User of the new MeatOrder
                     string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+                    joinEntity.User = currentUser;
 
-                    alcoholOrder.User = currentUser;
-                    string alcAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Alcohols.Find(alcoholId).AlcoholType}";
-                    _db.AlcoholOrders.Add(new AlcoholOrder() { RestaurantId = restaurantId, AlcoholId = alcoholId, AlcAndRestaurant = alcAndRestaurant });
+                    // Add the new MeatOrder to the database and save changes
+                    _db.AlcoholOrders.Add(joinEntity);
                     _db.SaveChanges();
+                    return RedirectToAction("Index", "RestaurantOrders");
                 }
-                return RedirectToAction("Index", "RestaurantOrders");
-            }
+            
         }
 
         public ActionResult Delete(int id)
