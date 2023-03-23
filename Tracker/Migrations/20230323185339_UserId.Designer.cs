@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracker.Models;
 
@@ -10,9 +11,10 @@ using Tracker.Models;
 namespace Tracker.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    partial class TrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230323185339_UserId")]
+    partial class UserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,9 +189,6 @@ namespace Tracker.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("AlcoholOrderId");
 
                     b.HasIndex("AlcoholId");
@@ -197,8 +196,6 @@ namespace Tracker.Migrations
                     b.HasIndex("DeliveryId");
 
                     b.HasIndex("RestaurantId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("AlcoholOrders");
                 });
@@ -330,9 +327,6 @@ namespace Tracker.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("MeatOrderId");
 
                     b.HasIndex("DeliveryId");
@@ -340,8 +334,6 @@ namespace Tracker.Migrations
                     b.HasIndex("MeatId");
 
                     b.HasIndex("RestaurantId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MeatOrders");
                 });
@@ -403,9 +395,6 @@ namespace Tracker.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
                     b.Property<string>("VegAndRestaurant")
                         .HasColumnType("longtext");
 
@@ -417,8 +406,6 @@ namespace Tracker.Migrations
                     b.HasIndex("DeliveryId");
 
                     b.HasIndex("RestaurantId");
-
-                    b.HasIndex("UserId");
 
                     b.HasIndex("VegetableId");
 
@@ -503,17 +490,11 @@ namespace Tracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tracker.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Alcohol");
 
                     b.Navigation("Delivery");
 
                     b.Navigation("Restaurant");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Tracker.Models.Meat", b =>
@@ -543,17 +524,11 @@ namespace Tracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tracker.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Delivery");
 
                     b.Navigation("Meat");
 
                     b.Navigation("Restaurant");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Tracker.Models.Restaurant", b =>
@@ -586,10 +561,6 @@ namespace Tracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tracker.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.HasOne("Tracker.Models.Vegetable", "Vegetable")
                         .WithMany("JoinVegetableOrderEntities")
                         .HasForeignKey("VegetableId")
@@ -599,8 +570,6 @@ namespace Tracker.Migrations
                     b.Navigation("Delivery");
 
                     b.Navigation("Restaurant");
-
-                    b.Navigation("User");
 
                     b.Navigation("Vegetable");
                 });

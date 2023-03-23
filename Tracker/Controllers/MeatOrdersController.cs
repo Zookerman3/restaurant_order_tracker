@@ -4,16 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 using Tracker.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 
 namespace Tracker.Controllers
 {
+    [Authorize]
     public class MeatOrdersController : Controller
     {
         private readonly TrackerContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public MeatOrdersController(TrackerContext db)
+        public MeatOrdersController(UserManager<ApplicationUser> userManager, TrackerContext db)
         {
+            _userManager = userManager;
             _db = db;
         }
 
@@ -26,18 +33,31 @@ namespace Tracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(int restaurantId, int meatId)
+        public async Task<ActionResult> Create(int restaurantId, int meatId, MeatOrder meatOrder)
         {
-#nullable enable
-            MeatOrder? joinEntity = _db.MeatOrders.FirstOrDefault(join => (join.RestaurantId == restaurantId && join.MeatId == meatId));
-#nullable disable
-            if (joinEntity == null && meatId != 0)
+
+            if (!ModelState.IsValid)
             {
-                string meatAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Meats.Find(meatId).MeatType}";
-                _db.MeatOrders.Add(new MeatOrder() { RestaurantId = restaurantId, MeatId = meatId, MeatAndRestaurant = meatAndRestaurant});
-                _db.SaveChanges();
+                return View();
             }
-            return RedirectToAction("Index", "RestaurantOrders");
+            else
+            {
+
+#nullable enable
+                MeatOrder? joinEntity = _db.MeatOrders.FirstOrDefault(join => (join.RestaurantId == restaurantId && join.MeatId == meatId));
+#nullable disable
+                if (joinEntity == null && meatId != 0)
+                {
+                    string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+
+                    meatOrder.User = currentUser;
+                    string meatAndRestaurant = $"{_db.Restaurants.Find(restaurantId).Name} - {_db.Meats.Find(meatId).MeatType}";
+                    _db.MeatOrders.Add(new MeatOrder() { RestaurantId = restaurantId, MeatId = meatId, MeatAndRestaurant = meatAndRestaurant });
+                    _db.SaveChanges();
+                }
+                return RedirectToAction("Index", "RestaurantOrders");
+            }
         }
 
         public ActionResult Delete(int id)

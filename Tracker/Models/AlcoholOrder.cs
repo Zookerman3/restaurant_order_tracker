@@ -12,6 +12,6 @@ namespace Tracker.Models
         public Alcohol Alcohol { get; set; }
         public Restaurant Restaurant { get; set; }
         public Delivery Delivery { get; set; }
-        // public ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

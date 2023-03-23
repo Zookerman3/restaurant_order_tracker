@@ -12,5 +12,6 @@ namespace Tracker.Models
         public Restaurant Restaurant { get; set; }
 
         public Delivery Delivery { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

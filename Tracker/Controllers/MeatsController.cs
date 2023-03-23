@@ -25,6 +25,7 @@ namespace Tracker.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public async Task<ActionResult> Create(Meat meat)
         {

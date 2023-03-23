@@ -12,39 +12,46 @@
 
 <h1>Meat Order Templates:</h1>
 
-@if (@Model["meats"].Length == 0)
+@if (User.Identity.IsAuthenticated)
 {
-    <h3>No Meat Orders have been added yet!</h3>
-}
-<ul>
-    @foreach (Meat meat in Model["meats"])
+    <h4>Order Templates for @User.Identity.Name</h4>
+    @if (@Model["meats"].Length == 0)
     {
-        <li>@Html.ActionLink(@meat.MeatType, "Details", "Meats", new { id = @meat.MeatId })</li>
+        <h3>No Meat Orders have been added yet!</h3>
     }
-</ul>
+    <ul>
+        @foreach (Meat meat in Model["meats"])
+        {
+            <li>@Html.ActionLink(@meat.MeatType, "Details", "Meats", new { id = @meat.MeatId })</li>
+        }
+    </ul>
 
-<h1>Vegetable Order Templates</h1>
-@if (Model["vegetables"].Length == 0)
-{
-  <p>No vegetable orders have been added yet!</p>
-} 
-<ul>
-  @foreach (Vegetable veg in Model["vegetables"])
-  {
-    <li>@Html.ActionLink(@veg.VegetableType, "Details", "Vegetables", new { id = @veg.VegetableId})</li>
-  }
-</ul>
+    <h1>Vegetable Order Templates</h1>
+    @if (Model["vegetables"].Length == 0)
+    {
+        <p>No vegetable orders have been added yet!</p>
+    }
+    <ul>
+        @foreach (Vegetable veg in Model["vegetables"])
+        {
+            <li>@Html.ActionLink(@veg.VegetableType, "Details", "Vegetables", new { id = @veg.VegetableId})</li>
+        }
+    </ul>
 
-<h1>Alcohol Order Templates:</h1>
-@if (Model["alcohols"].Length == 0)
-{
-  <p>No alcohol orders have been added yet!</p>
-} 
-<ul>
-  @foreach (Alcohol alcs in Model["alcohols"])
-  {
-    <li>@Html.ActionLink(@alcs.AlcoholType, "Details", "Alcohols", new { id = @alcs.AlcoholId})</li>
-  }
-</ul>
-
+    <h1>Alcohol Order Templates:</h1>
+    @if (Model["alcohols"].Length == 0)
+    {
+        <p>No alcohol orders have been added yet!</p>
+    }
+    <ul>
+        @foreach (Alcohol alcs in Model["alcohols"])
+        {
+            <li>@Html.ActionLink(@alcs.AlcoholType, "Details", "Alcohols", new { id = @alcs.AlcoholId})</li>
+        }
+    </ul>
+}
+else {
+  <h4>Order Templates</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your order templates.</p>
+}
 <p>@Html.ActionLink("Back To Home", "Index", "Home")</p>
